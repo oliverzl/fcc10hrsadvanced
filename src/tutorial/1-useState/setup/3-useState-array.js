@@ -12,6 +12,7 @@ const UseStateArray = () => {
   return (
     <>
       {people.map((person) => {
+        //this sets a list of people all with the remove functionality
         const { id, name } = person;
 
         return (

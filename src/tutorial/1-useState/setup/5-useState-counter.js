@@ -12,6 +12,7 @@ const UseStateCounter = () => {
         <h1>{value}</h1>
         <button
           className="btn"
+          // the onClick below is a callback function declared directly inside onClick
           onClick={() => {
             setValue(value - 1);
           }}
@@ -19,6 +20,7 @@ const UseStateCounter = () => {
           decrease
         </button>
         <button className="btn" onClick={reset}>
+          {/* the button here is a reference handler for onClick */}
           reset
         </button>
         <button

@@ -8,7 +8,7 @@ const UseStateObject = () => {
   });
   const changeMessage = () => {
     if (person.message === "random message") {
-      setPerson({ ...person, message: "hello world" });
+      setPerson({ ...person, message: "hello world" }); //this is a way to use useState in objects, through object destructuring
     } else setPerson({ ...person, message: "random message" });
   };
   return (

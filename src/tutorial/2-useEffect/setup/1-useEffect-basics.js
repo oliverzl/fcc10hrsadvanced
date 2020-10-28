@@ -12,7 +12,7 @@ const UseEffectBasics = () => {
   useEffect(() => {
     console.log("hello world");
   }, []); //we can have multiple useEffects in the component, but this useEffect will only run on initial mount as the dependency array is EMPTY therefore it cannot depend on the
-  console.log("render Component"); //this is jyst normal JSX
+  console.log("render Component"); //this is just normal JSX
   return (
     <>
       <h1>{value}</h1>

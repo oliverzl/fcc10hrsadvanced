@@ -12,7 +12,6 @@ const UseEffectSecondArgument = () => {
     const response = await fetch(url);
     const users = await response.json(); //running json on the response variable and setting it to the variable name users.
     setUsers(users);
-    // console.log(users);
   };
 
   //can only set up promises INSIDE callback function in useEffect
@@ -25,7 +24,7 @@ const UseEffectSecondArgument = () => {
       <h3>github users</h3>
       <ul className="users">
         {users.map((user) => {
-          //in this UL, we map the users array, and for each user we DESTRUCTURE the object, then return the list item INSIDE the UL
+          //in this UL, we map the users array, and for each user we DESTRUCTURE the object, then return the list item INSIDE the unordered list.
           const { id, login, avatar_url, html_url } = user;
           return (
             <li key={id}>

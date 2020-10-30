@@ -18,22 +18,22 @@ const ControlledInputs = () => {
     event.preventDefault(); //this is to set up prevent default behaviour, so that the page will NOT refresh on submit.
     if (firstName && email) {
       //if firstName && email are both true (not empty strings)
-      const person = { id: new Date().getTime().toString(), firstName, email };
+      const person = { id: new Date().getTime().toString(), firstName, email }; //the id will always be unique because its part of the time that the submit happens.
       console.log(person);
       setPeople((people) => {
-        return [...people, person];
+        return [...people, person]; //adding the new person to the people array in useState
       });
-
       setFirstName("");
       setEmail(""); //then set both values to be empty strings as we need to clear the input fields after submitting that user
     } else {
-      console.log("empty values"); //if ONE or both of the input fields are empty, log this into the console.
+      console.log("empty values"); //if ONE or BOTH of the input fields are empty, log this into the console.
     }
   };
   return (
     <>
       <article>
         <form className="form" onSubmit={handleSubmit}>
+          {/* handleSubmit is called onto the WHOLE form */}
           <div className="form-control">
             <label htmlFor="firstName">Name: </label>
             <input
@@ -49,22 +49,19 @@ const ControlledInputs = () => {
           </div>
 
           <div className="form-control">
-            <label htmlFor="email">Email: </label>
+            <label htmlFor="email">Email : </label>
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
-              value={email} // when we provide {value} prop to a FORM FIELD, we need to provide an onChange handler as well, else it will render a READ ONLY field.
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
+              value={email} //the value here is the value in useState for email.
+              onChange={(e) => setEmail(e.target.value)} //any keystroke in this input will setEmail to whatever is inside the input field
             />
           </div>
-          <button type="submit" onClick={handleSubmit}>
-            add person
-          </button>
+          <button type="submit">add person</button>
         </form>
         {people.map((person) => {
+          //mapping the people array.
           //below the input fields and the button to 'Add Person', we display the people array here.
           const { id, firstName, email } = person; //object destructuring
           return (

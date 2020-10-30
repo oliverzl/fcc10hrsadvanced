@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+//         ----------START OF FCC COMMENTS----------
+
 // JS
 // const input = document.getElementById('myText');
 // const inputValue = input.value
@@ -6,57 +8,78 @@ import React, { useState } from 'react';
 // value, onChange
 // dynamic object keys
 
+//         ----------END OF FCC COMMENTS----------
 const ControlledInputs = () => {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
+  //in this multiple inputs, we learn about having only ONE useState value for the person instead of multiple useState values. this is useful incase we have too many inputs to handle. we can also set ONE onChange function to be responsible for all the onChange handling.
+  // const [firstName, setFirstName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [age, setAge] = useState("");
+
+  const [person, setPerson] = useState({ firstName: "", email: "", age: "" });
   const [people, setPeople] = useState([]);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setPerson({ ...person, [name]: value }); //universal handleChange function for all inputs. first, const name is the event target name attribute in each input. eg the Name: input has 'firstName' as the name attribute, and the Email: input has the name set to 'email'. value is the same as the name attribute, where the value is set to the person object properties set above, in the person useState.
+    //the setPerson uses the ...rest object destucturing, then the name attribute as the 'key' setting it to the value in the input.
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (firstName && email) {
-      const person = { id: new Date().getTime().toString(), firstName, email };
-      console.log(person);
-      setPeople((people) => {
-        return [...people, person];
-      });
-      setFirstName('');
-      setEmail('');
-    } else {
-      console.log('empty values');
+    if (person.firstName && person.email && person.age) {
+      //this ensures that ALL the inputs are filled(all inputs must be filled)
+      const newPerson = { ...person, id: new Date().getTime().toString() };
+      setPeople([...people, newPerson]); //adding the newPerson into the people useState array
+      setPerson({ firstName: "", email: "", age: "" }); //setting the input fields to empty strings after clicking submit
     }
   };
+
   return (
     <>
       <article>
-        <form className='form' onSubmit={handleSubmit}>
-          <div className='form-control'>
-            <label htmlFor='firstName'>Name : </label>
+        <form className="form">
+          <div className="form-control">
+            <label htmlFor="firstName">Name : </label>
             <input
-              type='text'
-              id='firstName'
-              name='firstName'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={person.firstName} //value set to the person object firstName property in useState
+              onChange={handleChange}
             />
           </div>
-          <div className='form-control'>
-            <label htmlFor='email'>Email : </label>
+          <div className="form-control">
+            <label htmlFor="email">Email : </label>
             <input
-              type='email'
-              id='email'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+              name="email"
+              value={person.email} //default of person.email and the other properties are empty strings
+              onChange={handleChange}
             />
           </div>
-          <button type='submit'>add person</button>
+          <div className="form-control">
+            <label htmlFor="age">Age : </label>
+            <input
+              type="age"
+              id="age"
+              name="age"
+              value={person.age}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" onClick={handleSubmit}>
+            add person
+          </button>
         </form>
         {people.map((person, index) => {
-          const { id, firstName, email } = person;
+          const { id, firstName, email, age } = person; //destructuring here so we can display the h4 and p below with the variables created here during the destructure.
           return (
-            <div className='item' key={id}>
+            <div className="item" key={id}>
               <h4>{firstName}</h4>
               <p>{email}</p>
+              <p>{age}</p>
             </div>
           );
         })}

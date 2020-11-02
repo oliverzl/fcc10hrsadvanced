@@ -11,7 +11,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 const UseRefBasics = () => {
   const refContainer = useRef(null);
-  const divContainer = useRef(null);
+  const divContainer = useRef(null); //useRef(null) sets the default value of the ref to be null.
 
   //below is just another useRef example.
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ const UseRefBasics = () => {
 
   //below is fcc setup
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); //to prevent default behaviour
     console.log(refContainer.current.value); //whatever is typed into the input will be logged into the console when the submit button is clicked
     console.log(divContainer.current); //the DOM element that has the divContainer useRef will be logged into the console when the submit button is clicked, in this case its <div>hello world</div>
   };
@@ -31,7 +31,7 @@ const UseRefBasics = () => {
   useEffect(() => {
     console.log(refContainer.current);
     refContainer.current.focus();
-  }, []); // empty array means it only triggers on mount. this is here so that it does not run when we try out the second example of useRef below
+  }, []); // empty array means it only triggers on mount. this is here so that it does not run when we try out the second example of useRef below. remove the empty array to try the second example
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>

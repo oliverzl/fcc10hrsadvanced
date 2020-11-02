@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const ShortCircuit = () => {
   const [text, setText] = useState("");
   const [isError, setIsError] = useState(false);
-  const firstValue = text || "hello world"; //for the OR operator, if text is falsy, which it is now, because it is an empty strong, we return 'hello world'.
+  const firstValue = text || "hello world"; //for the OR operator, if text is falsy, which it is now, because it is an empty strong, we return 'hello world'. either one of the values on the left or right HAS TO BE TRUTHY. THE TRUTHY VALUE WILL BE ASSIGNED TO THE VARIAIBLE.
   const secondValue = text && "hello world";
   //for the AND operator, it works diffrently, in the sense that text has to be truthy for the 'hello world' after && to display.
 

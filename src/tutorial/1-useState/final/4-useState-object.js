@@ -12,7 +12,11 @@ const UseStateObject = () => {
   // const [message,setMessage] = useState('random message')
 
   const changeMessage = () => {
-    setPerson({ ...person, message: "hello world" });
+    if (person.message === "random message") {
+      setPerson({ ...person, message: "hello world" });
+    } else setPerson({ ...person, message: "random message" });
+
+    // setPerson({ ...person, message: "hello world" });
     // setMessage('hello world')
   };
 

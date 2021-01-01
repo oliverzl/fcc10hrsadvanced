@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+//useState is a named import, surround it with {} when importing
+
+//react hooks: begin with use: useState, useEffect
 // starts with use
 // component must be uppercase
 // invoke inside function/component body
@@ -10,22 +13,27 @@ const UseStateBasics = () => {
   // const handler = useState()[1];
   // console.log(value, handler);
 
-  const [text, setText] = useState('random title');
+  //this sets the initial value, which is 'random title'
+  //text is the state variable name, setText is the 'function' to change it
+  const [text, setText] = useState("random title");
+
   const handleClick = () => {
-    if (text === 'random title') {
-      setText('hello world');
+    if (text === "random title") {
+      //changing the value of the state variable text conditionally
+
+      setText("hello world");
     } else {
-      setText('random title');
+      setText("random title");
     }
   };
 
   return (
-    <React.Fragment>
+    <>
       <h1>{text}</h1>
-      <button type='button' className='btn' onClick={handleClick}>
+      <button type="button" className="btn" onClick={handleClick}>
         change title
       </button>
-    </React.Fragment>
+    </>
   );
 };
 

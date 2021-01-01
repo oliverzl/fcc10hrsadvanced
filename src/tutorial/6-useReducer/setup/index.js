@@ -11,6 +11,11 @@ const defaultState = {
 };
 
 const Index = () => {
+  const inputContainer = useRef(null); //this is setting up a simple ref to focus on the input after first mount.
+
+  useEffect(() => {
+    inputContainer.current.focus();
+  }, []);
   const [name, setName] = useState("");
 
   const [state, dispatch] = useReducer(reducer, defaultState); //always use dispatch that goes through reducer every time we want to do something with the whole state.
@@ -22,6 +27,7 @@ const Index = () => {
       //this handles the case where there is input value
       const newItem = { id: new Date().getTime().toString(), name };
       dispatch({ type: "ADD_ITEM", payload: newItem });
+      //we can add more properties to dispatch, payload is the common convention
       setName("");
     } else {
       dispatch({ type: "NO_VALUE" });
@@ -41,6 +47,7 @@ const Index = () => {
       <form onSubmit={handleSubmit} className="form">
         <div>
           <input
+            ref={inputContainer}
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}

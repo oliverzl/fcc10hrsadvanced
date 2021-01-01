@@ -13,6 +13,7 @@ const UseStateObject = () => {
 
   const changeMessage = () => {
     if (person.message === "random message") {
+      // in this example, for the argument in setPerson, we spread out the person object, and access the message property INSIDE the person object, and assign it a new text
       setPerson({ ...person, message: "hello world" });
     } else setPerson({ ...person, message: "random message" });
 

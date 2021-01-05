@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-//when we have the useEfect, we also have an option of returning a function.
-
 //the function below helps to remove the event listener before executing the useEffect again.
 // this ensures that the window will only have one event listener regardless of how many useEffects are triggered by re-render.
 
@@ -16,16 +14,25 @@ const UseEffectCleanup = () => {
     console.log("useEffect");
     window.addEventListener("resize", checkSize);
 
+    //below is a cleanup function inside the useEffect.
     return () => {
       console.log("cleanup");
       window.removeEventListener("resize", checkSize);
-    }; //this is a cleanup function inside the useEffect.
+    };
   });
 
   console.log("render");
   return (
     <>
-      <h1>window</h1>
+      <p style={{ width: "50%", margin: " 0 auto" }}>
+        when we have the useEfect, we also have an option of returning a
+        function.
+      </p>
+      <p style={{ width: "50%", margin: " 0 auto" }}>
+        this ensures that the window will only have one event listener
+        regardless of how many useEffects are triggered by re-render.
+      </p>
+      <h1>window size</h1>
       <h2>{size} PX</h2>
     </>
   );

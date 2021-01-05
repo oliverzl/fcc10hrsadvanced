@@ -2,10 +2,13 @@ import React, { useState } from "react";
 
 //setting up controlled inputs
 
+//the goal of this is to set up an array called people, that we can add to,
+
 //JS
 //const input = document.getElementById('myText');
 //const inputValue = input.value;
-//React
+
+//React is a different set up:
 //value.onChange
 
 const ControlledInputs = () => {
@@ -16,12 +19,13 @@ const ControlledInputs = () => {
   const handleSubmit = (event) => {
     //function to handle onSubmit
     event.preventDefault(); //this is to set up prevent default behaviour, so that the page will NOT refresh on submit.
+
     if (firstName && email) {
       //if firstName && email are both true (not empty strings)
-      const person = { id: new Date().getTime().toString(), firstName, email }; //the id will always be unique because its part of the time that the submit happens.
+      const person = { id: new Date().getTime().toString(), firstName, email }; //the id will always be unique because its part of the time that the submit happens, something like a version of a hash.
       console.log(person);
       setPeople((people) => {
-        return [...people, person]; //adding the new person to the people array in useState
+        return [...people, person]; //this is to CHANGE the array to either ADD or remove people in the array, and for this example its only ADDING.
       });
       setFirstName("");
       setEmail(""); //then set both values to be empty strings as we need to clear the input fields after submitting that user
@@ -29,6 +33,7 @@ const ControlledInputs = () => {
       console.log("empty values"); //if ONE or BOTH of the input fields are empty, log this into the console.
     }
   };
+
   return (
     <>
       <article>
@@ -55,7 +60,7 @@ const ControlledInputs = () => {
               id="email"
               name="email"
               value={email} //the value here is the value in useState for email.
-              onChange={(e) => setEmail(e.target.value)} //any keystroke in this input will setEmail to whatever is inside the input field
+              onChange={(event) => setEmail(event.target.value)} //any keystroke in this input will setEmail to whatever is inside the input field
             />
           </div>
           <button type="submit">add person</button>
@@ -63,6 +68,8 @@ const ControlledInputs = () => {
         {people.map((person) => {
           //mapping the people array.
           //below the input fields and the button to 'Add Person', we display the people array here.
+
+          //do not use index creating lists, it will be a problem if we remove items from the list
           const { id, firstName, email } = person; //object destructuring
           return (
             <div className="item" key={id}>

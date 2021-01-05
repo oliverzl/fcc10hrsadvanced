@@ -1,5 +1,5 @@
 import React from "react";
-import Setup from "./tutorial/1-useState/final/4-useState-object";
+import Setup from "./tutorial/4-forms/setup/1-controlled-inputs";
 
 function App() {
   return (

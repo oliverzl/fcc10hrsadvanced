@@ -1,37 +1,45 @@
+//the purpose of this is to have a title, github users, and display components, which the data is FETCHED from the github API.
+
+//becasue the data has to be fetched, which only occurs after the whole app is rendered, since it needs to request it from another server, this is where we use useEffect, to fetch the data after mounting the app.
+
 import React, { useState, useEffect } from "react";
 
-const url = "https://api.github.com/users"; //passed into fetch
+const url = "https://api.github.com/users";
 
 //second argument
 
 const UseEffectSecondArgument = () => {
   const [users, setUsers] = useState([]);
 
-  const gitUsers = async () => {
-    //this is the async await syntax with arrow function
+  //within the callback function inside useEffect, we want to perform a fetch request.
+
+  //in this example, we set up a seperate function, because we need to use async await.
+  //since async await returns a promise, we cannot use async on useEffect itself
+  //useEffect is looking for the cleanup function
+
+  const getUsers = async () => {
     const response = await fetch(url);
-    const users = await response.json(); //running json on the response variable and setting it to the variable name users.
+    const users = await response.json();
+    console.log("re-render");
     setUsers(users);
   };
 
-  //can only set up promises INSIDE callback function in useEffect
+  //the empty array in useEffect is important here, or getUsers will invoke setUsers, which will cause a re-render, and start useEffect again, and getUsers() will be invoked again, and the cycle continues..
   useEffect(() => {
-    gitUsers();
-  }, []); //to solve the infinite loop problem, we add the empty array, which means that useEffect will only run ON MOUNT, not on re-renders, and now we should iterate over the users
+    getUsers();
+  }, []);
 
   return (
     <>
       <h3>github users</h3>
       <ul className="users">
         {users.map((user) => {
-          //in this UL, we map the users array, and for each user we DESTRUCTURE the object, then return the list item INSIDE the unordered list.
           const { id, login, avatar_url, html_url } = user;
           return (
             <li key={id}>
               <img src={avatar_url} alt={login} />
               <div>
                 <h4>{login}</h4>
-                <a href={html_url}>Profile</a>
               </div>
             </li>
           );
@@ -42,6 +50,3 @@ const UseEffectSecondArgument = () => {
 };
 
 export default UseEffectSecondArgument;
-
-//in this tutorial, we learn that we cannot call useState inside useEffect, because calling useState will trigger a re-render, which triggers useEffect.
-//since useState is inside useEffect, we trigger useState again, and it becomes an INFINITE LOOP

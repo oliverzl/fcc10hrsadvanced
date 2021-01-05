@@ -5,9 +5,12 @@ const ShowHide = () => {
 
   return (
     <>
+      {/* toggles show true and false */}
       <button className="btn" onClick={() => setShow(!show)}>
         Show/hide
       </button>
+
+      {/* only if show is true, then render <Item/> */}
       {show && <Item />}
     </>
   );
@@ -22,7 +25,7 @@ const Item = () => {
   useEffect(() => {
     window.addEventListener("resize", checkSize);
     return () => {
-      //now, this function is required. this function is best used when the component is mounted on condition.
+      //now, this function is required. this function is best used when the component is mounted on condition, for example, <Item />
       window.removeEventListener("resize", checkSize);
     };
   }, []); //now, the problem is with every toggle of the button to show/hide the window px value, it adds event listeners without cleanup, even with the empty dependency array.

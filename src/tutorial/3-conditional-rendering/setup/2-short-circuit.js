@@ -3,40 +3,43 @@ import React, { useState } from "react";
 // ternary operator
 
 const ShortCircuit = () => {
+  //ti make text truthy, it must be a string, and to make text falsy, it must be an empty string
   const [text, setText] = useState("");
-  const [isError, setIsError] = useState(false);
-  const firstValue = text || "hello world"; //for the OR operator, if text is falsy, which it is now, because it is an empty strong, we return 'hello world'. either one of the values on the left or right HAS TO BE TRUTHY. THE TRUTHY VALUE WILL BE ASSIGNED TO THE VARIAIBLE.
-  const secondValue = text && "hello world";
-  //for the AND operator, it works diffrently, in the sense that text has to be truthy for the 'hello world' after && to display.
+  const [isError, setIsError] = useState("");
 
-  //we learn about this so we can set up short circuit exporessions in JSX
+  //for the OR operator, if text is an empty string, then we return the second value.
+  // for the beginning firstValue example,
+
+  const firstValue = text || "hello world";
+
+  //however, for the && operator, if text is truthy, we return the second value.
+  const secondValue = text && "hello world";
 
   return (
     <>
-      {/* <h1>{firstValue}</h1>
-      <h1> value: {secondValue}</h1> */}
-      <h1>{text || "john doe"}</h1>
+      {/* we can also set ternary operators right inside the return statements of JSX: */}
+      <h1>{firstValue + " is shown when it is true"}</h1>
+      {/* the value below will display variable text if text is truthy, and 'john doe' if variable text is falsy */}
+      <h1>{text || "john doe will be displayed if text is falsy"}</h1>
+
+      {/* for the example below: if text is true, return h1 goodye world */}
+      {text && <h1>goodbye world will be displayed if text is truthy</h1>}
+
+      {!text && <h1>Shown when variable text is NOT true</h1>}
+
+      <h2>Value: {secondValue}</h2>
+
+      <h1>BUTTON EXAMPLE</h1>
+
       <button
         className="btn"
         onClick={() => {
-          setIsError(!isError); //this onClick switches the isError state between true and false.
+          setIsError(!isError);
         }}
       >
-        {" "}
-        toggle error
+        Toggle error
       </button>
-      {isError && <h1> Error...</h1>}
-      {/* here it only displays Error... if {isError} is true */}
-
-      {/* below is the ternary operator */}
-      {isError ? (
-        <p>there is an error...</p>
-      ) : (
-        <div>
-          <h2>there is no error!</h2>
-        </div>
-      )}
-      {/* if isError is true, run paragraph, else, display h2 there is no error! */}
+      {isError && <h1>Error occurred...</h1>}
     </>
   );
 };

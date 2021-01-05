@@ -11,24 +11,28 @@ import React, { useState } from "react";
 //         ----------END OF FCC COMMENTS----------
 const ControlledInputs = () => {
   //in this multiple inputs, we learn about having only ONE useState value for the person instead of multiple useState values. this is useful incase we have too many inputs to handle. we can also set ONE onChange function to be responsible for all the onChange handling.
+
+  //instead of the 3 useState values below:
   // const [firstName, setFirstName] = useState("");
   // const [email, setEmail] = useState("");
   // const [age, setAge] = useState("");
 
+  //we use this person useState instead. this is just ONE useState value.
   const [person, setPerson] = useState({ firstName: "", email: "", age: "" });
+  //over here, we set the useState to store in the addition of person in the people array.
   const [people, setPeople] = useState([]);
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setPerson({ ...person, [name]: value }); //universal handleChange function for all inputs. first, const name is the event target name attribute in each input. eg the Name: input has 'firstName' as the name attribute, and the Email: input has the name set to 'email'. value is the same as the name attribute, where the value is set to the person object properties set above, in the person useState.
-    //the setPerson uses the ...rest object destucturing, then the name attribute as the 'key' setting it to the value in the input.
+    setPerson({ ...person, [name]: value }); //universal handleChange function for all inputs. first, const name is the event target name attribute in each input. eg the (Name: input) has 'firstName' as the name attribute, and the (Email: input) has the name set to 'email'. the const value variable follows the (Name: input) example where the value is set to the person object properties set above, in the person useState.
+    //the setPerson uses the {...rest} object destucturing, then the name attribute as the 'key' setting it to the value in the input.
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (person.firstName && person.email && person.age) {
-      //this ensures that ALL the inputs are filled(all inputs must be filled)
+      //this ensures that ALL the inputs are filled(using the ternary operators with React)
       const newPerson = { ...person, id: new Date().getTime().toString() };
       setPeople([...people, newPerson]); //adding the newPerson into the people useState array
       setPerson({ firstName: "", email: "", age: "" }); //setting the input fields to empty strings after clicking submit

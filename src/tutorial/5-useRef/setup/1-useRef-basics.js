@@ -1,57 +1,33 @@
-import React, { useEffect, useState, useRef } from "react";
-//----------START OF FCC COMMENTS----------
-// preserves value
-// DOES NOT trigger re-render
-// target DOM nodes/elements
-//----------END OF FCC COMMENTS----------
+import React, { useEffect, useRef } from "react";
 
-// works alot like useState
-//useState triggers re-render, useRef does not.
-//useRef returns MUTABLE OBJECT, with one property: current
+//preserves value
+//DOES NOT TRIGGER RE-RENDER
+//target DOM nodes/elements
 
 const UseRefBasics = () => {
   const refContainer = useRef(null);
-  const divContainer = useRef(null); //useRef(null) sets the default value of the ref to be null.
+  const divContainer = useRef(null);
 
-  //below is just another useRef example.
-  const [name, setName] = useState("");
-  const prevName = useRef("");
-
-  useEffect(() => {
-    prevName.current = name;
-  }, [name]);
-
-  //below is fcc setup
-  const handleSubmit = (e) => {
-    e.preventDefault(); //to prevent default behaviour
-    console.log(refContainer.current.value); //whatever is typed into the input will be logged into the console when the submit button is clicked
-    console.log(divContainer.current); //the DOM element that has the divContainer useRef will be logged into the console when the submit button is clicked, in this case its <div>hello world</div>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(refContainer.current.value);
+    console.log(divContainer.current);
   };
 
   useEffect(() => {
     console.log(refContainer.current);
     refContainer.current.focus();
-  }, []); // empty array means it only triggers on mount. this is here so that it does not run when we try out the second example of useRef below. remove the empty array to try the second example
+  });
+
   return (
     <>
-      <form className="form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <div>
           <input type="text" ref={refContainer} />
-          <button type="submit"> submit</button>
+          <button type="submit">Submit</button>
         </div>
       </form>
-      <div ref={divContainer}>hello world</div>
-
-      {/* below is another example for useRef */}
-      <input
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <div>
-        My Name is {name} and it used to be {prevName.current}
-      </div>
+      <div ref={divContainer}>Hello world</div>
     </>
   );
 };

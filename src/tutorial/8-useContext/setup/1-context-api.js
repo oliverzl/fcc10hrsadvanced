@@ -10,9 +10,10 @@ import { data } from "../../../data";
 //the context API is a way to solve prop drilling, so that we do not need to pass functions down multiple levels as props, hence the name prop drilling.
 
 const PersonContext = React.createContext(); //creating the context.
-//now we have access to two components after React.createContext: PROVIDER AND CONSUMER
+//CREATING CONTEXT GIVES US TWO COMPONENTS: PROVIDER AND CONSUMER
+//we DO NOT use consumer, only Provider
 
-//Provider: works as a distributor: find the root component, in this case it is the <ContextAPI/>, and then we wrap the return statement of the root component in the PersonContext.Provider
+//Provider: works as a distributor: find the root component, in this case it is the <ContextAPI/>, and then we wrap the return statement of the root component in the PersonContext.Provider html tags: <PersonContext> .... <Person.Context/>
 
 const ContextAPI = () => {
   const [people, setPeople] = useState(data);
@@ -22,6 +23,7 @@ const ContextAPI = () => {
       return people.filter((person) => person.id !== id);
     });
   };
+
   return (
     // in the PersonContext.Provider, we have the value prop, and we can pass in whatever we want inside.
     //in the value below, we pass in the removePerson function, and the people array of objects(data)
@@ -33,8 +35,8 @@ const ContextAPI = () => {
 };
 
 const List = () => {
-  const mainData = useContext(PersonContext); //this is not destructuring mainData
-  console.log(mainData);
+  const mainData = useContext(PersonContext); //this is not destructuring mainData, we take the people array from the PersonContext.Provider value.
+
   //now, we can see that the removePerson function from the <ContextAPI/> component does not go through prop drilling, (does not drill through the <List/> component. )
   return (
     <>
@@ -46,7 +48,7 @@ const List = () => {
 };
 
 const SinglePerson = ({ id, name }) => {
-  const { removePerson } = useContext(PersonContext); //curly braces here is destructuring removePerson.
+  const { removePerson } = useContext(PersonContext); //curly braces here is destructuring removePerson, contexted from PersonContext component declaration
 
   return (
     <div className="item">

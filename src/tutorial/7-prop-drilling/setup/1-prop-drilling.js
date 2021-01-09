@@ -7,6 +7,7 @@ import { data } from "../../../data";
 
 //---------MY COMMENTS---------
 //prop drilling is not an official term, but it is like a side effect when we have multiple components, and we have the big component tree, and we need to pass some state from the top component to the bottom of the component tree.
+//something like the prop DRILLING down the hierachy of components
 
 //what if we set up a function that deletes a single item from the list? now, we need to pass down the removePerson function to the List component, and the List component needs to pass down that same function to SinglePerson component.
 
@@ -18,6 +19,7 @@ const PropDrilling = () => {
   const removePerson = (id) => {
     //we have to pass this down to the <SinglePerson/> component because only the main component here, <PropDrilling/>, has the people useState.
     setPeople((people) => {
+      //return  the array of people with the person id NOT MATCHING the person.id selected when we click the button for removePerson
       return people.filter((person) => person.id !== id);
     });
   };

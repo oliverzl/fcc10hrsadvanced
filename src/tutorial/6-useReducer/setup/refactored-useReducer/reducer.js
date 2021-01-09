@@ -1,11 +1,15 @@
+//refactoring the reducer function further to take in switch values instead
+
+//the reducer function takes in the state, and action as arguments
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
-      const newPeople = [...state.people, action.payload];
+      //the ...state.list takes the list array from the list property declared in the defaultState object.
+      const newList = [...state.list, action.payload];
       return {
         //we need to return the spread object, then the variables to change.
         ...state,
-        people: newPeople,
+        list: newList,
         isModalOpen: true,
         modalContent: "Item Added",
       };
@@ -19,13 +23,13 @@ const reducer = (state, action) => {
       };
 
     case "REMOVE_ITEM":
-      const updatedPeople = state.people.filter(
+      const updatedList = state.list.filter(
         (person) => person.id !== action.payload
       );
 
       return {
         ...state,
-        people: updatedPeople,
+        list: updatedList,
         isModalOpen: true,
         modalContent: "item removed",
       };

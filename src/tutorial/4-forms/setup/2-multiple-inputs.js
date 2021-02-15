@@ -9,6 +9,9 @@ import React, { useState } from "react";
 // dynamic object keys
 
 //         ----------END OF FCC COMMENTS----------
+
+//TO DO 15/02/21
+// set a useRef in a useEffect to highlight the first field right after mounting the app and right after submitting one person to the array
 //in this multiple inputs, we learn about having only ONE useState value for the person instead of multiple useState values. this is useful incase we have too many inputs to handle. we can also set ONE onChange function to be responsible for all the onChange handling.
 
 const ControlledInputs = () => {
@@ -46,51 +49,64 @@ const ControlledInputs = () => {
     }
   };
 
+  const removeItem = (id) => {
+    console.log(id);
+    let newPeople = people.filter((person) => person.id !== id);
+    setPeople(newPeople);
+  };
+
   return (
     <>
       <article>
-        <form className="form">
-          <div className="form-control">
-            <label htmlFor="firstName">Name : </label>
+        <form className='form'>
+          <div className='form-control'>
+            <label htmlFor='firstName'>Name : </label>
             <input
-              type="text"
-              id="firstName"
-              name="firstName"
+              type='text'
+              id='firstName'
+              name='firstName'
               value={person.firstName} //value set to the person object firstName property in useState
               onChange={handleChange}
             />
           </div>
-          <div className="form-control">
-            <label htmlFor="email">Email : </label>
+          <div className='form-control'>
+            <label htmlFor='email'>Email : </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type='email'
+              id='email'
+              name='email'
               value={person.email} //default of person.email and the other properties are empty strings
               onChange={handleChange}
             />
           </div>
-          <div className="form-control">
-            <label htmlFor="age">Age : </label>
+          <div className='form-control'>
+            <label htmlFor='age'>Age : </label>
             <input
-              type="age"
-              id="age"
-              name="age"
+              type='age'
+              id='age'
+              name='age'
               value={person.age}
               onChange={handleChange}
             />
           </div>
-          <button type="submit" onClick={handleSubmit}>
+          <button type='submit' onClick={handleSubmit}>
             add person
           </button>
         </form>
         {people.map((person, index) => {
           const { id, firstName, email, age } = person; //destructuring here so we can display the h4 and p below with the variables created here during the destructure.
           return (
-            <div className="item" key={id}>
+            <div className='item' key={id}>
               <h4>{firstName}</h4>
               <p>{email}</p>
               <p>{age}</p>
+              <button
+                onClick={() => {
+                  removeItem(id);
+                }}
+              >
+                Remove here
+              </button>
             </div>
           );
         })}

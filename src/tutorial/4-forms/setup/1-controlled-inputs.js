@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 //setting up controlled inputs
 
-//the goal of this is to set up an array called people, that we can add to,
+//the goal of this is to set up an array called people, that we can add to.
+//here, we setState on any changes made in the input field. this removes the need to physically click or interact with something to setState.
+//eg, i type my name into the name input. with every keystroke or deletion, ANY CHANGES the input faces will result in a setState
 
 //JS
 //const input = document.getElementById('myText');
@@ -37,14 +39,14 @@ const ControlledInputs = () => {
   return (
     <>
       <article>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           {/* handleSubmit is called onto the WHOLE form */}
-          <div className="form-control">
-            <label htmlFor="firstName">Name: </label>
+          <div className='form-control'>
+            <label htmlFor='firstName'>Name: </label>
             <input
-              type="text"
-              id="firstName"
-              name="firstName"
+              type='text'
+              id='firstName'
+              name='firstName'
               value={firstName}
               onChange={(event) => {
                 //on any change to the input field, we set whatever is in the input field to setState for firstName and email.
@@ -53,17 +55,17 @@ const ControlledInputs = () => {
             />
           </div>
 
-          <div className="form-control">
-            <label htmlFor="email">Email : </label>
+          <div className='form-control'>
+            <label htmlFor='email'>Email : </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type='email'
+              id='email'
+              name='email'
               value={email} //the value here is the value in useState for email.
               onChange={(event) => setEmail(event.target.value)} //any keystroke in this input will setEmail to whatever is inside the input field
             />
           </div>
-          <button type="submit">add person</button>
+          <button type='submit'>add person</button>
         </form>
         {people.map((person) => {
           //mapping the people array.
@@ -72,7 +74,7 @@ const ControlledInputs = () => {
           //do not use index creating lists, it will be a problem if we remove items from the list
           const { id, firstName, email } = person; //object destructuring
           return (
-            <div className="item" key={id}>
+            <div className='item' key={id}>
               <h4>{firstName}</h4>
               <p>{email}</p>3
             </div>

@@ -58,11 +58,11 @@ const MultipleReturns = () => {
     );
   }
 
-  //in this return, we display the userTest.loginName, and the userTest.profileImg
+  //default return if isLoading and isError is FALSY we display the userTest.loginName, and the userTest.profileImg
   return (
     <div>
       <h1>{usertest.loginName}</h1>
-      <img src={usertest.profileImg} alt="" />
+      <img src={usertest.profileImg} alt='' />
     </div>
   );
 };

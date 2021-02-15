@@ -1,9 +1,9 @@
 import React from "react";
-import Setup from "./tutorial/1-useState/setup/1-error-example";
+import Setup from "./tutorial/4-forms/setup/2-multiple-inputs";
 
 function App() {
   return (
-    <div className="container">
+    <div className='container'>
       <Setup />
     </div>
   );

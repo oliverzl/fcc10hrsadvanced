@@ -11,13 +11,15 @@ const UseEffectBasics = () => {
 
   useEffect(() => {
     console.log("hello world");
-  }, []); //we can have multiple useEffects in the component, but this useEffect will only run on initial mount as the dependency array is EMPTY therefore it cannot depend on the
+  }, []); //we can have multiple useEffects in the component, but this useEffect will only run on initial mount as the dependency array is EMPTY therefore it will not run after subsequest renders of the component
   console.log("render Component"); //this is just normal JSX
   return (
     <>
       <h1>{value}</h1>
       <button
-        className="btn"
+        className='btn'
+        //MUST ALWAYS REMEMBER THAT FOR ONCLICK, WE MUST PUT IN THE FUNCTION DECLARATION. THIS MEANS:  1. DECLARE A FUNCTION ABOVE, AND PUT IN THE FUNCTION WITHOUT CALLING IT: onClick = {handleSubmit}, NOT onClick = {handleSubmit()}
+        //2. arrow function right inside the onClick, like below
         onClick={() => {
           setValue(value + 1);
         }}

@@ -1,5 +1,6 @@
 import React from "react";
 import Product from "./Product";
+//importing the useFetch custom hook.
 import { useFetch } from "../../9-custom-hooks/final/2-useFetch";
 import defaultImage from "../../../assets/default-image.jpeg";
 const url = "https://course-api.netlify.app/api/react-prop-types-example";
@@ -10,7 +11,7 @@ const Index = () => {
     <div>
       <h2>products</h2>
       {/* <img src={defaultImage} alt="" /> */}
-      <section className="products">
+      <section className='products'>
         {products.map((product) => {
           return <Product key={product.id} {...product} />;
         })}

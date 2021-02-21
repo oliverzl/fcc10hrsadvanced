@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-//when we pass in useFetch to other components, we can simply pass in the URL as an argument.
+//functionality is tucked away in this custom hook
+//this custom hookl expects one argument, url
+
+//the function here can only be a component, or a custom hook.
+//custom hook names MUST have use infront, eg useFetch useDelete etc.
 export const useFetch = (url) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -13,7 +17,8 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     getProducts();
-  }, [url]); //this means that the useEffect will run whenever it mounts OR if the argument(url) changes, meaning we can use it in other components.
+  }, [url]);
 
+  //we call the useEffect when we invoke the function, and also if we change the arugment for the custom hook.
   return { loading, products };
 };

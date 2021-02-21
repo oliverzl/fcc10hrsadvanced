@@ -1,44 +1,52 @@
+//working with APIs, we know that sometimes some of the properties in objects with APIs are not always there. john shows that the price property of all the objects may not always exist, and the last object in the array does not have the price property.
+
+//the question is, what if a property does not exist in the data that we're fetching?
+
+//sample object shows that the image prop inside the sample object is actually an object as well, with the url property, which is what we really want.
+//if we try to access the url property on image: undefined on the last object, we get error
+//if only 99/100 have all the properties except that one object, it will still throw an error
+//sample: { id: '...', name: 'randomName', image: {url: '.....'} }
+
+//in the video, the last object does not even have the image object property, and in javascript, we know that if we try to access the url property in a non-existent object, we get a huge error.
+//if 1/100 of the properties is missing, it doesnt matter if the 99 items are errorless, it will still spoil everything.
+
 import React from "react";
+
+//here, we just import PropTypes, which is what we need to get started.
+//below is an import from the package.
 import PropTypes from "prop-types";
 import defaultImage from "../../../assets/default-image.jpeg";
 
-//PropType and default props
-
 const Product = ({ image, name, price }) => {
+  // what we are doing below is, we only set image.url to a const url, ONLY if image ExtensionScriptApis.
   const url = image && image.url;
-
-  //in the return statement, we can see that for name and price, we can use the OR operator, but not for the image, because image is an object with the URL property that we are looking for, so 'one level deeper' that we cannot check, so we need to declare a constant url on top to check if the image property is true, and if it is, we ASSIGN image.url to the const url, which is then used below.
   return (
-    <article className="product">
+    <article className='product'>
       <h4>Single Product</h4>
-      <img src={url || defaultImage} alt={name || "default Name"} />
+      {/* we cannot use default image as the default value with the OR operator like this: */}
+      {/* <img src={image.url || defaultImage} alt='' /> */}
+      {/* when we check for the url property on the image, we cannot use the OR operator, because JS will complain that we are trying to access a property called url on an image object property that is undefined, so we set up the AND operator on top.  */}
+
+      <img src={url || defaultImage} alt={name || "default name"} />
       <h4>{name}</h4>
-      <p>${price || "$3.99"}</p>
+      {/* we can use the OR operator to show either the price OR 3.99 as a default */}
+      <p>{price || 3.99}</p>
     </article>
   );
 };
 
+//this is the PROPERTY ON THE PRODUCT COMPONENT THAT IS ALWAYS GOING TO BE THERE.
 Product.propTypes = {
-  image: PropTypes.object.isRequired, //now, it will show that image and the price for some of the products are missing.
+  image: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
-//we set up default props to prevent browser from showing errors if the image property is missing. however, its now commented out because there is default checking now in the code on top:
-
-//--------DEFAULT PROPS SETTING------------
-// Product.defaultProps = {
-//   name: "default name",
-//   price: "$3.99 default",
-//   image: defaultImage,
-// };
-//-------- END OF DEFAULT PROPS SETTING------------
+//here we set up default props, if name/price/image is missing.
+Product.defaultProps = {
+  name: "default name",
+  price: 3.99,
+  image: defaultImage,
+};
 
 export default Product;
-
-//for now, the last product does not have the price here, because when we fetch data from APIs, we are not guaranteed values.
-
-//what is worse is, in the url in the setup/proptypes that we fetch data from, each object has an image property, but the image property is another object, with a property of url, which shows the url of the image.
-
-//in JS, if we try to access URL property on the img, that is UNDEFINED (like the last object), there will be a big error
-//therefore, even if 99/100 of the objects in the data all have complete properties, the error will throw because the last one does not have the img property.

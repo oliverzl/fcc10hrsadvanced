@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+
+//this is importing the custom hook from 2-useFetch
 import { useFetch } from "./2-useFetch";
 
-//THIS IS A CUSTOM HOOK, must have the 'use' infront.
+const url = "https://course-api.com/javascript-store-products";
 
-//here, we learn ways to solve the problem if we want to reuse the functionality: what if there is another component that needs to fetch data from a url, we do not need to duplicate the lines of code below.
-
-const url = "https://course-api.netlify.app/api/javascript-store-products";
 const Example = () => {
-  const { loading, products } = useFetch(url); //now, the functionality of fetching data is tucked away in a CUSTOM HOOK. we import this custom hook on top.
+  //useFetch(url) returns both loading and product state values, and below is just destructuring it.
+  const { loading, products } = useFetch(url);
   console.log(products);
   return (
     <div>

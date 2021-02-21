@@ -1,19 +1,13 @@
 import React, { useState, useContext } from "react";
 import { data } from "../../../data";
 
-//----------START OF FCC COMMENTS----------
-// more components
-// fix - context api, redux (for more complex cases)
-//----------END OF FCC COMMENTS----------
+//---------MY COMMENTS---------
+//CREATING THE CONTEXT
 
-//----------MY COMMENTS----------
-//the context API is a way to solve prop drilling, so that we do not need to pass functions down multiple levels as props, hence the name prop drilling.
-
-const PersonContext = React.createContext(); //creating the context.
-//CREATING CONTEXT GIVES US TWO COMPONENTS: PROVIDER AND CONSUMER
-//we DO NOT use consumer, only Provider
-
-//Provider: works as a distributor: find the root component, in this case it is the <ContextAPI/>, and then we wrap the return statement of the root component in the PersonContext.Provider html tags: <PersonContext> .... <Person.Context/>
+const PersonContext = React.createContext();
+//useContext returns two components, PROVIDER AND CONSUMER
+//we access the context by: PersonContext.Provider
+//provider works as a distributor: we find the root component, and wrap the return of root component in PersonContext provider.
 
 const ContextAPI = () => {
   const [people, setPeople] = useState(data);
@@ -25,19 +19,19 @@ const ContextAPI = () => {
   };
 
   return (
-    // in the PersonContext.Provider, we have the value prop, and we can pass in whatever we want inside.
-    //in the value below, we pass in the removePerson function, and the people array of objects(data)
+    //we only wrap our component tree or our whole application in PersonContext.Provider. this is the only place where PersonContext.Provider is used, to wrap around return statement of app/root component.
     <PersonContext.Provider value={{ removePerson, people }}>
-      <h3>ContextAPI / useContext</h3>
+      <h3>useContext / context API</h3>
       <List />
     </PersonContext.Provider>
   );
 };
 
-const List = () => {
-  const mainData = useContext(PersonContext); //this is not destructuring mainData, we take the people array from the PersonContext.Provider value.
-
-  //now, we can see that the removePerson function from the <ContextAPI/> component does not go through prop drilling, (does not drill through the <List/> component. )
+const List = ({ people }) => {
+  const mainData = useContext(PersonContext);
+  console.log(mainData);
+  //here we show that we do not need to destructure mainData. useContext(PersonContext) returns an OBJECT as shown by mainData.
+  //here we can just map mainData.people. this is an array
   return (
     <>
       {mainData.people.map((person) => {
@@ -48,14 +42,19 @@ const List = () => {
 };
 
 const SinglePerson = ({ id, name }) => {
-  const { removePerson } = useContext(PersonContext); //curly braces here is destructuring removePerson, contexted from PersonContext component declaration
+  const { removePerson } = useContext(PersonContext);
 
   return (
-    <div className="item">
+    <div className='item'>
       <h4>{name}</h4>
-      <button onClick={() => removePerson(id)}>remove</button>
+      <button onClick={() => removePerson(id)}>Remove</button>
     </div>
   );
 };
 
 export default ContextAPI;
+
+//we need to pass in PersonContext to any call of useContext
+
+//john smilga's personal comments about useContext:
+//useContext is not useful to him unless the component tree is at least 3 levels down, because it doesnt jusitfy the extra effort to create the context instead of drilling props.

@@ -1,5 +1,5 @@
 import React from "react";
-import Setup from "./tutorial/4-forms/setup/3-forms-useRef-focus";
+import Setup from "./tutorial/10-prop-types/setup/index";
 // import Setup from "./testing";
 
 function App() {

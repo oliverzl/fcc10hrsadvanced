@@ -4,14 +4,15 @@ import { data } from "../../../data";
 //---------MY COMMENTS---------
 //CREATING THE CONTEXT
 
+//always wrap the main app in the context.Provider
+
 const PersonContext = React.createContext();
-//useContext returns two components, PROVIDER AND CONSUMER
+//useContext returns two COMPONENTS, PROVIDER AND CONSUMER
 //we access the context by: PersonContext.Provider
 //provider works as a distributor: we find the root component, and wrap the return of root component in PersonContext provider.
 
 const ContextAPI = () => {
   const [people, setPeople] = useState(data);
-
   const removePerson = (id) => {
     setPeople((people) => {
       return people.filter((person) => person.id !== id);
@@ -23,11 +24,20 @@ const ContextAPI = () => {
     <PersonContext.Provider value={{ removePerson, people }}>
       <h3>useContext / context API</h3>
       <List />
+      {/* this button refreshes all the people */}
+      <button
+        className='btn'
+        onClick={() => {
+          setPeople(data);
+        }}
+      >
+        Refresh
+      </button>
     </PersonContext.Provider>
   );
 };
 
-const List = ({ people }) => {
+const List = () => {
   const mainData = useContext(PersonContext);
   console.log(mainData);
   //here we show that we do not need to destructure mainData. useContext(PersonContext) returns an OBJECT as shown by mainData.
@@ -58,3 +68,17 @@ export default ContextAPI;
 
 //john smilga's personal comments about useContext:
 //useContext is not useful to him unless the component tree is at least 3 levels down, because it doesnt jusitfy the extra effort to create the context instead of drilling props.
+
+//BREAKDOWN OF USECONTEXT SET UP:
+
+// const AppContext = React.createContext();
+
+// const AppProvider = () => {
+
+//   //declare all the state values to use context with.
+//   return (
+//     <AppContext.Provider value = {{...}}>
+//       <App />
+//     </AppContext.Provider>
+//   );
+// };

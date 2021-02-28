@@ -10,7 +10,7 @@ const Modal = ({ closeModal, modalContent }) => {
     }, 2000);
   });
   return (
-    <div className="modal">
+    <div className='modal'>
       <p>{modalContent}</p>
     </div>
   );

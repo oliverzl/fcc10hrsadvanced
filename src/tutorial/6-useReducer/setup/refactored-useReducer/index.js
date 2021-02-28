@@ -2,12 +2,13 @@
 
 //REFACTORED VERSION THAT USES USEREDUCER
 
-//in the terms of useReducer, we want to have some kind of structure when the app gets bigger and bigger. useState for small scale applications is okay, but when we work as a team, its good to have some 'guardrails', where we only update the state in a 'certain way', so that way everyone is on the same page.
+//in the terms of useReducer, we want to have some kind of structure when the app gets bigger and bigger. useState for small scale applications is okay, but when we work as a team, its good to have some 'guardrails', where we only update the state in a certain way, so that way everyone is on the same page.
 
 //for React's explanation:
 //useReducer is preferable compared to useState, when we have complex state logic that involves multiple sub-values or when the NEXT STATE DEPENDS ON THE PREVIOUS STATE.
 
 //when we invoke useReducer, we get two things: the state value, and the dispatch function, similar to useState.
+
 // the difference between useState and useReducer, is that, each and every time we want to do something with the state, for useReducer, we must always ALWAYS use dispatch, and it goes through the reducer, and the reducer function takes in the old state, puts it through an 'action', and then 'spits' out the new state.
 
 //useReducer, looks for reducer, a function that manipulates the state, which happens when we DISPATCH the ACTION, and the second argument in useReducer is the initial state, for now, we set it up as a separate variable called defaultState.
@@ -17,6 +18,7 @@ import Modal from "./Modal";
 import reducer from "./reducer";
 
 //initial state used by useReducer
+//declared outside of the component.
 const defaultState = {
   list: [],
   isModalOpen: false,
@@ -24,14 +26,17 @@ const defaultState = {
 };
 
 const Index = () => {
+  //over here, we declare one state variable name, and a ref for the input.
   const [name, setName] = useState("");
   const inputRef = useRef(null);
 
+  //this useEffect is to make sure the input field is highlighted on mount.
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  //sets the state, to initialState for the 'initial state' when it mounts
+  //sets the state, to defaultState for the 'initial state' when it mounts
+  //this is also initialising the useReducer hook
   const [state, dispatch] = useReducer(reducer, defaultState);
 
   const handleSubmit = (event) => {
@@ -46,8 +51,6 @@ const Index = () => {
     }
   };
 
-  //this useEffect is to make sure the input field is highlighted on mount.
-
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
@@ -60,27 +63,27 @@ const Index = () => {
       {state.isModalOpen && (
         <Modal closeModal={closeModal} modalContent={state.modalContent} />
       )}
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className='form'>
         <div>
           <input
             ref={inputRef}
-            type="text"
+            type='text'
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
         </div>
-        <button type="submit">Add Person</button>
+        <button type='submit'>Add Person</button>
       </form>
       {state.list.map((person) => {
         return (
-          <div className="item" key={person.id}>
+          <div className='item' key={person.id}>
             <h4>{person.name}</h4>
             <button
               onClick={() => {
                 dispatch({ type: "REMOVE_ITEM", payload: person.id });
               }}
             >
-              remove
+              Remove
             </button>
           </div>
         );

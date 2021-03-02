@@ -1,5 +1,5 @@
 import React from "react";
-import Setup from "./tutorial/11-react-router/setup";
+import Setup from "./tutorial/12-memo-useMemo-useCallback/setup/index";
 // import Setup from "./testing";
 // 11-react-router: importing the Component ReactRouterSetup as default import Setup from 11-react-router/setup/index.js
 

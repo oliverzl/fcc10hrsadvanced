@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { useFetch } from '../../9-custom-hooks/final/2-useFetch';
-const url = 'https://course-api.netlify.app/api/javascript-store-products';
+import React, { useState, useCallback, useMemo } from "react";
+import { useFetch } from "../../9-custom-hooks/final/2-useFetch";
+const url = "https://course-api.netlify.app/api/javascript-store-products";
 
 // every time props or state changes, component re-renders
 const calculateMostExpensive = (data) => {
@@ -34,7 +34,7 @@ const Index = () => {
       <button className='btn' onClick={() => setCount(count + 1)}>
         click me
       </button>
-      <h1 style={{ marginTop: '3rem' }}>cart : {cart}</h1>
+      <h1 style={{ marginTop: "3rem" }}>cart : {cart}</h1>
       <h1>Most Expensive : ${mostExpensive}</h1>
       <BigList products={products} addToCart={addToCart} />
     </>
